@@ -1139,10 +1139,9 @@ def check_offset():
                                "{:X}".format(array_index_65 + 4).upper())
             offset_text.configure(state="disabled")
             offset_text.pack()
-            offset_text.place(x=240, y=764)
+            offset_text.place(x=244, y=764)
             mp_colors_in_campaign_var.set(1)
             mp_colors_in_campaign_button.select()
-            always_elite_button.config(state="disabled")
         elif array_index_66 and array_index_67 and array_index_68 and array_index_69 and array_index_70 and array_index_71 != -1:
             offset_text = tk.Text(root, height=1, width=45, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
             offset_text.insert("1.0", "{:X}".format(array_index_66 + 4).upper() + ", " +
@@ -1153,11 +1152,10 @@ def check_offset():
                                "{:X}".format(array_index_71 + 4).upper())
             offset_text.configure(state="disabled")
             offset_text.pack()
-            offset_text.place(x=240, y=764)
+            offset_text.place(x=244, y=764)
         else:
             mp_colors_in_campaign_var.set(0)
             mp_colors_in_campaign_button.deselect()
-            always_elite_button.config(state="disabled")
 
     except:
         print("An error occured while reading the DLL file.")
