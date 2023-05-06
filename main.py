@@ -140,6 +140,8 @@ def clear_dll():
             undo_theater_sync_fix()
         if mp_colors_in_campaign_var.get() == 1:
             undo_mp_colors_in_campaign()
+        if acrophobia_in_mp_var.get() == 1:
+            acrophobia_in_mp_button()
 
 
 # Clear Button
@@ -190,6 +192,7 @@ def remove_dll():
     bump_possession_var.set(False)
     theater_sync_var.set(False)
     mp_colors_in_campaign_var.set(False)
+    acrophobia_in_mp_var(False)
 
     # Set the open DLL status to True
     open_dll_active = True
@@ -206,7 +209,7 @@ def remove_dll():
                         flashlight_in_multiplayer_button, third_person_button, zero_gravity_button, always_elite_button,
                         enlarge_all_crate_objects_button, ai_spawning_via_effects_button, laso_in_multiplayer_button,
                         fix_forge_falling_speed_button, wall_clip_in_theater_button, bottomless_equipment_button,
-                        bump_possession_button, theater_sync_button, mp_colors_in_campaign_button]
+                        bump_possession_button, theater_sync_button, mp_colors_in_campaign_button, acrophobia_in_mp_button]
     for checkbox_widget in checkbox_widgets:
         checkbox_widget.configure(state="disabled")
         version_label.config(text="")
@@ -289,7 +292,7 @@ def open_dll():
                                 laso_in_multiplayer_button,
                                 fix_forge_falling_speed_button, wall_clip_in_theater_button,
                                 bottomless_equipment_button,
-                                bump_possession_button, theater_sync_button, mp_colors_in_campaign_button]
+                                bump_possession_button, theater_sync_button, mp_colors_in_campaign_button, acrophobia_in_mp_button]
             for checkbox_widget in checkbox_widgets:
                 checkbox_widget.configure(state="normal")
 
@@ -319,6 +322,7 @@ def open_dll():
             if version != "1.3073.0.0":
                 bump_possession_button.config(state="disabled")
                 fix_forge_falling_speed_button.config(state="disabled")
+                acrophobia_in_mp_button.config(state="disabled")
 
         # Handle exception if invalid file or file not found
         except FileNotFoundError:
@@ -1156,6 +1160,50 @@ def check_offset():
         else:
             mp_colors_in_campaign_var.set(0)
             mp_colors_in_campaign_button.deselect()
+
+        # Check for Acrophobia in Multiplayer
+        array_bytes_72 = b"\x90\x90\x90\x90\x90\x90\x83\xBB\x78\x01\x00\x00"
+        array_index_72 = dll_bytes.find(array_bytes_72)
+        array_bytes_73 = b"\x01\x00\x00\xEB\x4A\xBF\x88\x01\x00\x00\x4B\x8D"
+        array_index_73 = dll_bytes.find(array_bytes_73)
+        array_bytes_74 = b"\xF3\x0F\x10\x4C\x24\x4C\xF3\x41\x0F\x11\x8C\x36"
+        array_index_74 = dll_bytes.find(array_bytes_74)
+        array_bytes_75 = b"\x90\x90\x90\x90\x90\x90\x41\x8B\x84\x36\xC0\x00\x00\x00\x83"
+        array_index_75 = dll_bytes.find(array_bytes_75)
+
+        # Check for Acrophobia in Multiplayer (Default Settings)
+        array_bytes_76 = b"\x0F\x84\xFC\x01\x00\x00\x83\xBB\x78\x01\x00\x00"
+        array_index_76 = dll_bytes.find(array_bytes_76)
+        array_bytes_77 = b"\x90\x00\x00\xEB\x4A\xBF\x88\x01\x00\x00\x4B\x8D"
+        array_index_77 = dll_bytes.find(array_bytes_77)
+        array_bytes_78 = b"\x90\x0F\x10\x4C\x24\x4C\xF3\x41\x0F\x11\x8C\x36"
+        array_index_78 = dll_bytes.find(array_bytes_78)
+        array_bytes_79 = b"\x0F\x84\xD3\x00\x00\x00\x41\x8B\x84\x36\xC0\x00\x00\x00\x83"
+        array_index_79 = dll_bytes.find(array_bytes_79)
+
+        if array_index_72 and array_index_73 and array_index_74 and array_index_75 != -1:
+            offset_text = tk.Text(root, height=1, width=30, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
+            offset_text.insert("1.0", "{:X}".format(array_index_72).upper() + ", " +
+                               "{:X}".format(array_index_73).upper() + ", " +
+                               "{:X}".format(array_index_74).upper() + ", " +
+                               "{:X}".format(array_index_75).upper())
+            offset_text.configure(state="disabled")
+            offset_text.pack()
+            offset_text.place(x=320, y=823)
+            acrophobia_in_mp_var.set(1)
+            acrophobia_in_mp_button.select()
+        elif array_index_76 and array_index_77 and array_index_78 and array_index_79 != -1:
+            offset_text = tk.Text(root, height=1, width=30, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
+            offset_text.insert("1.0", "{:X}".format(array_index_76).upper() + ", " +
+                               "{:X}".format(array_index_77).upper() + ", " +
+                               "{:X}".format(array_index_78).upper() + ", " +
+                               "{:X}".format(array_index_79).upper())
+            offset_text.configure(state="disabled")
+            offset_text.pack()
+            offset_text.place(x=320, y=823)
+        else:
+            acrophobia_in_mp_var.set(0)
+            acrophobia_in_mp_button.deselect()
 
     except:
         print("An error occured while reading the DLL file.")
@@ -4068,6 +4116,182 @@ mp_colors_in_campaign_button.bind("<Leave>", leave)
 
 
 
+
+# Acrophobia in Multiplayer
+def acrophobia_in_mp():
+    global dll_bytes
+    search_bytes = b"\x0F\x84\xFC\x01\x00\x00\x83\xBB\x78\x01\x00\x00"
+    replace_bytes = b"\x90\x90\x90\x90\x90\x90\x83\xBB\x78\x01\x00\x00"
+
+    # Find the index of original bytes
+    index = dll_bytes.find(search_bytes)
+    if index != -1:
+
+        # Replace original bytes with replacement
+        dll_bytes[index:index + len(search_bytes)] = replace_bytes
+    else:
+        # Show error message if search bytes are not found
+        error_label = tk.Label(root, text="Bytes not found at 1st offset. Contact Apoxied#1337 via Discord.")
+        error_label.pack()
+        root.after(3000, error_label.destroy)
+
+    search_bytes = b"\x90\x00\x00\xEB\x4A\xBF\x88\x01\x00\x00\x4B\x8D"
+    replace_bytes = b"\x01\x00\x00\xEB\x4A\xBF\x88\x01\x00\x00\x4B\x8D"
+
+    # Find the index of original bytes
+    index = dll_bytes.find(search_bytes)
+    if index != -1:
+
+        # Replace original bytes with replacement
+        dll_bytes[index:index + len(search_bytes)] = replace_bytes
+    else:
+        # Show error message if search bytes are not found
+        error_label = tk.Label(root, text="Bytes not found at 2nd offset. Contact Apoxied#1337 via Discord.")
+        error_label.pack()
+        root.after(3000, error_label.destroy)
+
+    search_bytes = b"\x90\x0F\x10\x4C\x24\x4C\xF3\x41\x0F\x11\x8C\x36"
+    replace_bytes = b"\xF3\x0F\x10\x4C\x24\x4C\xF3\x41\x0F\x11\x8C\x36"
+
+    # Find the index of original bytes
+    index = dll_bytes.find(search_bytes)
+    if index != -1:
+
+        # Replace original bytes with replacement
+        dll_bytes[index:index + len(search_bytes)] = replace_bytes
+    else:
+        # Show error message if search bytes are not found
+        error_label = tk.Label(root, text="Bytes not found at 3rd offset. Contact Apoxied#1337 via Discord.")
+        error_label.pack()
+        root.after(3000, error_label.destroy)
+
+    search_bytes = b"\x0F\x84\xD3\x00\x00\x00\x41\x8B\x84\x36\xC0\x00\x00\x00\x83"
+    replace_bytes = b"\x90\x90\x90\x90\x90\x90\x41\x8B\x84\x36\xC0\x00\x00\x00\x83"
+
+    # Find the index of original bytes
+    index = dll_bytes.find(search_bytes)
+    if index != -1:
+
+        # Replace original bytes with replacement
+        dll_bytes[index:index + len(search_bytes)] = replace_bytes
+    else:
+        # Show error message if search bytes are not found
+        error_label = tk.Label(root, text="Bytes not found at 4th offset. Contact Apoxied#1337 via Discord.")
+        error_label.pack()
+        root.after(3000, error_label.destroy)
+
+    # Display the print statement in a Tkinter window
+    global label
+    label = tk.Label(root, text="Acrophobia in Multiplayer Activated.")
+    label.pack()
+    root.after(3000, label.destroy)
+
+
+# Undo Acrophobia in Multiplayer
+def undo_acrophobia_in_mp():
+    global dll_bytes
+    search_bytes = b"\x90\x90\x90\x90\x90\x90\x83\xBB\x78\x01\x00\x00"
+    replace_bytes = b"\x0F\x84\xFC\x01\x00\x00\x83\xBB\x78\x01\x00\x00"
+
+    # Find the index of original bytes
+    index = dll_bytes.find(search_bytes)
+    if index != -1:
+
+        # Replace original bytes with replacement
+        dll_bytes[index:index + len(search_bytes)] = replace_bytes
+    else:
+        # Show error message if search bytes are not found
+        error_label = tk.Label(root, text="Bytes not found at 1st offset. Contact Apoxied#1337 via Discord.")
+        error_label.pack()
+        root.after(3000, error_label.destroy)
+
+    search_bytes = b"\x01\x00\x00\xEB\x4A\xBF\x88\x01\x00\x00\x4B\x8D"
+    replace_bytes = b"\x90\x00\x00\xEB\x4A\xBF\x88\x01\x00\x00\x4B\x8D"
+
+    # Find the index of original bytes
+    index = dll_bytes.find(search_bytes)
+    if index != -1:
+
+        # Replace original bytes with replacement
+        dll_bytes[index:index + len(search_bytes)] = replace_bytes
+    else:
+        # Show error message if search bytes are not found
+        error_label = tk.Label(root, text="Bytes not found at 2nd offset. Contact Apoxied#1337 via Discord.")
+        error_label.pack()
+        root.after(3000, error_label.destroy)
+
+    search_bytes = b"\xF3\x0F\x10\x4C\x24\x4C\xF3\x41\x0F\x11\x8C\x36"
+    replace_bytes = b"\x90\x0F\x10\x4C\x24\x4C\xF3\x41\x0F\x11\x8C\x36"
+
+    # Find the index of original bytes
+    index = dll_bytes.find(search_bytes)
+    if index != -1:
+
+        # Replace original bytes with replacement
+        dll_bytes[index:index + len(search_bytes)] = replace_bytes
+    else:
+        # Show error message if search bytes are not found
+        error_label = tk.Label(root, text="Bytes not found at 3rd offset. Contact Apoxied#1337 via Discord.")
+        error_label.pack()
+        root.after(3000, error_label.destroy)
+
+    search_bytes = b"\x90\x90\x90\x90\x90\x90\x41\x8B\x84\x36\xC0\x00\x00\x00\x83"
+    replace_bytes = b"\x0F\x84\xD3\x00\x00\x00\x41\x8B\x84\x36\xC0\x00\x00\x00\x83"
+
+    # Find the index of original bytes
+    index = dll_bytes.find(search_bytes)
+    if index != -1:
+
+        # Replace original bytes with replacement
+        dll_bytes[index:index + len(search_bytes)] = replace_bytes
+    else:
+        # Show error message if search bytes are not found
+        error_label = tk.Label(root, text="Bytes not found at 4th offset. Contact Apoxied#1337 via Discord.")
+        error_label.pack()
+        root.after(3000, error_label.destroy)
+
+    # Write Changes to File
+    with open(filepath, 'wb') as f:
+        f.write(dll_bytes)
+
+    # Display the print statement in a Tkinter window
+    global label
+    label = tk.Label(root, text="Acrophobia in Multiplayer Deactivated.")
+    label.pack()
+    root.after(3000, label.destroy)
+
+
+# Multiplayer Colors in Campaign Checkbox
+acrophobia_in_mp_var = tk.IntVar()
+acrophobia_in_mp_button = tk.Checkbutton(root, text='Acrophobia in Multiplayer (1.3073.0.0 ONLY)', variable=acrophobia_in_mp_var,
+                                             command=lambda: (
+                                                 acrophobia_in_mp() if acrophobia_in_mp_var.get() else undo_acrophobia_in_mp()),
+                                             font=("arcadia", 10, "bold"))
+acrophobia_in_mp_button.pack()
+acrophobia_in_mp_button.place(x=10, y=820)
+
+# invulnerability in multiplayer info tooltip
+acrophobia_in_mp_tooltip_text = "Acrophobia Skull in Multiplayer (Fly Around)."
+acrophobia_in_mp_tooltip = Label(root, text=acrophobia_in_mp_tooltip_text, font="Verdana 8", bg="gold", relief="solid")
+acrophobia_in_mp_tooltip.pack_forget()
+
+# attach location of tooltip to the right of the text associated with the checkbox.
+def enter(event):
+    acrophobia_in_mp_tooltip.lift(aboveThis=None)
+    acrophobia_in_mp_tooltip.place(x=acrophobia_in_mp_button.winfo_x() + acrophobia_in_mp_button.winfo_width(), y=acrophobia_in_mp_button.winfo_y(), anchor='nw')
+
+# hide tooltip when hovering away
+def leave(event):
+    acrophobia_in_mp_tooltip.pack_forget()
+    acrophobia_in_mp_tooltip.lift(aboveThis=None)
+    acrophobia_in_mp_tooltip.place_forget()
+
+# button binds
+acrophobia_in_mp_button.bind("<Enter>", enter)
+acrophobia_in_mp_button.bind("<Leave>", leave)
+
+
+
 checkbox_widgets = [broad_stroke_physics_collision_button, no_motion_blur_button, bottomless_button,
                     all_grenades_at_once_button, bottomless_ammo_button, no_barriers_kill_triggers_button,
                     thirty_tick_button, dual_wield_anything_button, custom_colors_multiplayer_button,
@@ -4075,7 +4299,7 @@ checkbox_widgets = [broad_stroke_physics_collision_button, no_motion_blur_button
                     flashlight_in_multiplayer_button, third_person_button, zero_gravity_button, always_elite_button,
                     enlarge_all_crate_objects_button, ai_spawning_via_effects_button, laso_in_multiplayer_button,
                     fix_forge_falling_speed_button, wall_clip_in_theater_button, bottomless_equipment_button,
-                    bump_possession_button, theater_sync_button, mp_colors_in_campaign_button]
+                    bump_possession_button, theater_sync_button, mp_colors_in_campaign_button, acrophobia_in_mp_button]
 for checkbox_widget in checkbox_widgets:
     checkbox_widget.configure(state="disabled")
 
