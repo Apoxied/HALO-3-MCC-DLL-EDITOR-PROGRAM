@@ -914,8 +914,6 @@ def check_offset():
             offset_text.configure(state="disabled")
             offset_text.pack()
             offset_text.place(x=312, y=433)
-            fix_forge_falling_speed_var.set(1)
-            fix_forge_falling_speed_button.select()
         else:
             fix_forge_falling_speed_var.set(0)
             fix_forge_falling_speed_button.deselect()
@@ -1164,40 +1162,28 @@ def check_offset():
         # Check for Acrophobia in Multiplayer
         array_bytes_72 = b"\x90\x90\x90\x90\x90\x90\x83\xBB\x78\x01\x00\x00"
         array_index_72 = dll_bytes.find(array_bytes_72)
-        array_bytes_73 = b"\x01\x00\x00\xEB\x4A\xBF\x88\x01\x00\x00\x4B\x8D"
+        array_bytes_73 = b"\x90\x90\x90\x90\x90\x90\x41\x8B\x84\x36\xC0\x00\x00\x00\x83"
         array_index_73 = dll_bytes.find(array_bytes_73)
-        array_bytes_74 = b"\xF3\x0F\x10\x4C\x24\x4C\xF3\x41\x0F\x11\x8C\x36"
-        array_index_74 = dll_bytes.find(array_bytes_74)
-        array_bytes_75 = b"\x90\x90\x90\x90\x90\x90\x41\x8B\x84\x36\xC0\x00\x00\x00\x83"
-        array_index_75 = dll_bytes.find(array_bytes_75)
 
         # Check for Acrophobia in Multiplayer (Default Settings)
-        array_bytes_76 = b"\x0F\x84\xFC\x01\x00\x00\x83\xBB\x78\x01\x00\x00"
-        array_index_76 = dll_bytes.find(array_bytes_76)
-        array_bytes_77 = b"\x90\x00\x00\xEB\x4A\xBF\x88\x01\x00\x00\x4B\x8D"
-        array_index_77 = dll_bytes.find(array_bytes_77)
-        array_bytes_78 = b"\x90\x0F\x10\x4C\x24\x4C\xF3\x41\x0F\x11\x8C\x36"
-        array_index_78 = dll_bytes.find(array_bytes_78)
-        array_bytes_79 = b"\x0F\x84\xD3\x00\x00\x00\x41\x8B\x84\x36\xC0\x00\x00\x00\x83"
-        array_index_79 = dll_bytes.find(array_bytes_79)
+        array_bytes_74 = b"\x0F\x84\xFC\x01\x00\x00\x83\xBB\x78\x01\x00\x00"
+        array_index_74 = dll_bytes.find(array_bytes_74)
+        array_bytes_75 = b"\x0F\x84\xD3\x00\x00\x00\x41\x8B\x84\x36\xC0\x00\x00\x00\x83"
+        array_index_75 = dll_bytes.find(array_bytes_75)
 
-        if array_index_72 and array_index_73 and array_index_74 and array_index_75 != -1:
+        if array_index_72 and array_index_73 != -1:
             offset_text = tk.Text(root, height=1, width=30, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
             offset_text.insert("1.0", "{:X}".format(array_index_72).upper() + ", " +
-                               "{:X}".format(array_index_73).upper() + ", " +
-                               "{:X}".format(array_index_74).upper() + ", " +
-                               "{:X}".format(array_index_75).upper())
+                               "{:X}".format(array_index_73).upper())
             offset_text.configure(state="disabled")
             offset_text.pack()
             offset_text.place(x=320, y=823)
             acrophobia_in_mp_var.set(1)
             acrophobia_in_mp_button.select()
-        elif array_index_76 and array_index_77 and array_index_78 and array_index_79 != -1:
+        elif array_index_74 and array_index_75 != -1:
             offset_text = tk.Text(root, height=1, width=30, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
-            offset_text.insert("1.0", "{:X}".format(array_index_76).upper() + ", " +
-                               "{:X}".format(array_index_77).upper() + ", " +
-                               "{:X}".format(array_index_78).upper() + ", " +
-                               "{:X}".format(array_index_79).upper())
+            offset_text.insert("1.0", "{:X}".format(array_index_74).upper() + ", " +
+                               "{:X}".format(array_index_75).upper())
             offset_text.configure(state="disabled")
             offset_text.pack()
             offset_text.place(x=320, y=823)
@@ -4135,36 +4121,6 @@ def acrophobia_in_mp():
         error_label.pack()
         root.after(3000, error_label.destroy)
 
-    search_bytes = b"\x90\x00\x00\xEB\x4A\xBF\x88\x01\x00\x00\x4B\x8D"
-    replace_bytes = b"\x01\x00\x00\xEB\x4A\xBF\x88\x01\x00\x00\x4B\x8D"
-
-    # Find the index of original bytes
-    index = dll_bytes.find(search_bytes)
-    if index != -1:
-
-        # Replace original bytes with replacement
-        dll_bytes[index:index + len(search_bytes)] = replace_bytes
-    else:
-        # Show error message if search bytes are not found
-        error_label = tk.Label(root, text="Bytes not found at 2nd offset. Contact Apoxied#1337 via Discord.")
-        error_label.pack()
-        root.after(3000, error_label.destroy)
-
-    search_bytes = b"\x90\x0F\x10\x4C\x24\x4C\xF3\x41\x0F\x11\x8C\x36"
-    replace_bytes = b"\xF3\x0F\x10\x4C\x24\x4C\xF3\x41\x0F\x11\x8C\x36"
-
-    # Find the index of original bytes
-    index = dll_bytes.find(search_bytes)
-    if index != -1:
-
-        # Replace original bytes with replacement
-        dll_bytes[index:index + len(search_bytes)] = replace_bytes
-    else:
-        # Show error message if search bytes are not found
-        error_label = tk.Label(root, text="Bytes not found at 3rd offset. Contact Apoxied#1337 via Discord.")
-        error_label.pack()
-        root.after(3000, error_label.destroy)
-
     search_bytes = b"\x0F\x84\xD3\x00\x00\x00\x41\x8B\x84\x36\xC0\x00\x00\x00\x83"
     replace_bytes = b"\x90\x90\x90\x90\x90\x90\x41\x8B\x84\x36\xC0\x00\x00\x00\x83"
 
@@ -4202,36 +4158,6 @@ def undo_acrophobia_in_mp():
     else:
         # Show error message if search bytes are not found
         error_label = tk.Label(root, text="Bytes not found at 1st offset. Contact Apoxied#1337 via Discord.")
-        error_label.pack()
-        root.after(3000, error_label.destroy)
-
-    search_bytes = b"\x01\x00\x00\xEB\x4A\xBF\x88\x01\x00\x00\x4B\x8D"
-    replace_bytes = b"\x90\x00\x00\xEB\x4A\xBF\x88\x01\x00\x00\x4B\x8D"
-
-    # Find the index of original bytes
-    index = dll_bytes.find(search_bytes)
-    if index != -1:
-
-        # Replace original bytes with replacement
-        dll_bytes[index:index + len(search_bytes)] = replace_bytes
-    else:
-        # Show error message if search bytes are not found
-        error_label = tk.Label(root, text="Bytes not found at 2nd offset. Contact Apoxied#1337 via Discord.")
-        error_label.pack()
-        root.after(3000, error_label.destroy)
-
-    search_bytes = b"\xF3\x0F\x10\x4C\x24\x4C\xF3\x41\x0F\x11\x8C\x36"
-    replace_bytes = b"\x90\x0F\x10\x4C\x24\x4C\xF3\x41\x0F\x11\x8C\x36"
-
-    # Find the index of original bytes
-    index = dll_bytes.find(search_bytes)
-    if index != -1:
-
-        # Replace original bytes with replacement
-        dll_bytes[index:index + len(search_bytes)] = replace_bytes
-    else:
-        # Show error message if search bytes are not found
-        error_label = tk.Label(root, text="Bytes not found at 3rd offset. Contact Apoxied#1337 via Discord.")
         error_label.pack()
         root.after(3000, error_label.destroy)
 
