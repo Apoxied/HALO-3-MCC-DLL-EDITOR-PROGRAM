@@ -1346,13 +1346,13 @@ tooltip.pack_forget()
 
 
 # attach location of tooltip to the right of the text associated with the checkbox.
-def enter():
+def enter(event):
     tooltip.lift(aboveThis=None)
     tooltip.place(x=bottomless_button.winfo_x() + bottomless_button.winfo_width(), y=bottomless_button.winfo_y(), anchor='nw')
 
 
 # hide tooltip when hovering away
-def leave():
+def leave(event):
     tooltip.pack_forget()
     tooltip.lift(aboveThis=None)
     tooltip.place_forget()
@@ -1943,10 +1943,7 @@ def undo_dual_wield_anything():
 
 # dual wield anything checkbox
 dual_wield_anything_var = tk.IntVar()
-dual_wield_anything_button = tk.Checkbutton(root, text='Dual Wield Anything', variable=dual_wield_anything_var,
-                                            command=lambda: (
-                                                dual_wield_anything() if dual_wield_anything_var.get() else undo_dual_wield_anything()), cursor="hand2",
-                                            font=("arcadia", 10, "bold"))
+dual_wield_anything_button = tk.Checkbutton(root, text='Dual Wield Anything', variable=dual_wield_anything_var, command=lambda: (dual_wield_anything() if dual_wield_anything_var.get() else undo_dual_wield_anything()), cursor="hand2", font=("arcadia", 10, "bold"))
 dual_wield_anything_button.pack()
 dual_wield_anything_button.place(x=10, y=220)
 
@@ -3120,16 +3117,19 @@ ai_spawning_via_effects_tooltip_text = "Enable AI spawning, via effects. \nMust 
 ai_spawning_via_effects_tooltip = Label(root, text=ai_spawning_via_effects_tooltip_text, font="Verdana 8", bg="gold", relief="solid")
 ai_spawning_via_effects_tooltip.pack_forget()
 
+
 # attach location of tooltip to the right of the text associated with the checkbox.
 def enter(event):
     ai_spawning_via_effects_tooltip.lift(aboveThis=None)
     ai_spawning_via_effects_tooltip.place(x=ai_spawning_via_effects_button.winfo_x() + ai_spawning_via_effects_button.winfo_width(), y=ai_spawning_via_effects_button.winfo_y(), anchor='nw')
+
 
 # hide tooltip when hovering away
 def leave(event):
     ai_spawning_via_effects_tooltip.pack_forget()
     ai_spawning_via_effects_tooltip.lift(aboveThis=None)
     ai_spawning_via_effects_tooltip.place_forget()
+
 
 # button binds
 ai_spawning_via_effects_button.bind("<Enter>", enter)
@@ -3241,16 +3241,19 @@ laso_in_multiplayer_tooltip_text = "Enable all skulls in multiplayer (excludes A
 laso_in_multiplayer_tooltip = Label(root, text=laso_in_multiplayer_tooltip_text, font="Verdana 8", bg="gold", relief="solid")
 laso_in_multiplayer_tooltip.pack_forget()
 
+
 # attach location of tooltip to the right of the text associated with the checkbox.
 def enter(event):
     laso_in_multiplayer_tooltip.lift(aboveThis=None)
     laso_in_multiplayer_tooltip.place(x=laso_in_multiplayer_button.winfo_x() + laso_in_multiplayer_button.winfo_width(), y=laso_in_multiplayer_button.winfo_y(), anchor='nw')
+
 
 # hide tooltip when hovering away
 def leave(event):
     laso_in_multiplayer_tooltip.pack_forget()
     laso_in_multiplayer_tooltip.lift(aboveThis=None)
     laso_in_multiplayer_tooltip.place_forget()
+
 
 # button binds
 laso_in_multiplayer_button.bind("<Enter>", enter)
@@ -3332,16 +3335,19 @@ third_person_tooltip_text = "Play in a 3rd person perspective, campaign & multip
 third_person_tooltip = Label(root, text=third_person_tooltip_text, font="Verdana 8", bg="gold", relief="solid")
 third_person_tooltip.pack_forget()
 
+
 # attach location of tooltip to the right of the text associated with the checkbox.
 def enter(event):
     third_person_tooltip.lift(aboveThis=None)
     third_person_tooltip.place(x=third_person_button.winfo_x() + third_person_button.winfo_width(), y=third_person_button.winfo_y(), anchor='nw')
+
 
 # hide tooltip when hovering away
 def leave(event):
     third_person_tooltip.pack_forget()
     third_person_tooltip.lift(aboveThis=None)
     third_person_tooltip.place_forget()
+
 
 # button binds
 third_person_button.bind("<Enter>", enter)
@@ -3435,16 +3441,19 @@ zero_gravity_tooltip_text = "Experience Halo 3 in Zero G."
 zero_gravity_tooltip = Label(root, text=zero_gravity_tooltip_text, font="Verdana 8", bg="gold", relief="solid")
 zero_gravity_tooltip.pack_forget()
 
+
 # attach location of tooltip to the right of the text associated with the checkbox.
 def enter(event):
     zero_gravity_tooltip.lift(aboveThis=None)
     zero_gravity_tooltip.place(x=zero_gravity_button.winfo_x() + zero_gravity_button.winfo_width(), y=zero_gravity_button.winfo_y(), anchor='nw')
+
 
 # hide tooltip when hovering away
 def leave(event):
     zero_gravity_tooltip.pack_forget()
     zero_gravity_tooltip.lift(aboveThis=None)
     zero_gravity_tooltip.place_forget()
+
 
 # button binds
 zero_gravity_button.bind("<Enter>", enter)
@@ -3556,16 +3565,19 @@ always_elite_tooltip_text = "Forces you to be an elite/arbiter model (single pla
 always_elite_tooltip = Label(root, text=always_elite_tooltip_text, font="Verdana 8", bg="gold", relief="solid")
 always_elite_tooltip.pack_forget()
 
+
 # attach location of tooltip to the right of the text associated with the checkbox.
 def enter(event):
     always_elite_tooltip.lift(aboveThis=None)
     always_elite_tooltip.place(x=always_elite_button.winfo_x() + always_elite_button.winfo_width(), y=always_elite_button.winfo_y(), anchor='nw')
+
 
 # hide tooltip when hovering away
 def leave(event):
     always_elite_tooltip.pack_forget()
     always_elite_tooltip.lift(aboveThis=None)
     always_elite_tooltip.place_forget()
+
 
 # button binds
 always_elite_button.bind("<Enter>", enter)
@@ -3740,16 +3752,19 @@ bump_possession_tooltip_text = "Turn into & control any AI model by bumping into
 bump_possession_tooltip = Label(root, text=bump_possession_tooltip_text, font="Verdana 8", bg="gold", relief="solid")
 bump_possession_tooltip.pack_forget()
 
+
 # attach location of tooltip to the right of the text associated with the checkbox.
 def enter(event):
     bump_possession_tooltip.lift(aboveThis=None)
     bump_possession_tooltip.place(x=bump_possession_button.winfo_x() + bump_possession_button.winfo_width(), y=bump_possession_button.winfo_y(), anchor='nw')
+
 
 # hide tooltip when hovering away
 def leave(event):
     bump_possession_tooltip.pack_forget()
     bump_possession_tooltip.lift(aboveThis=None)
     bump_possession_tooltip.place_forget()
+
 
 # button binds
 bump_possession_button.bind("<Enter>", enter)
@@ -3849,8 +3864,7 @@ def undo_broad_stroke_physics_collision():
 
 # broad stroke physics collision checkbox
 broad_stroke_physics_collision_var = tk.IntVar()
-broad_stroke_physics_collision_button = tk.Checkbutton(root, text='Broad Stroke Physics Collision',
-                                                       variable=broad_stroke_physics_collision_var, command=lambda: (
+broad_stroke_physics_collision_button = tk.Checkbutton(root, text='Broad Stroke Physics Collision', variable=broad_stroke_physics_collision_var, command=lambda: (
         broad_stroke_physics_collision() if broad_stroke_physics_collision_var.get() else undo_broad_stroke_physics_collision()),
                                                        font=("arcadia", 10, "bold"))
 broad_stroke_physics_collision_button.pack()
@@ -3861,16 +3875,19 @@ broad_stroke_physics_collision_tooltip_text = "Currently in the process of fixin
 broad_stroke_physics_collision_tooltip = Label(root, text=broad_stroke_physics_collision_tooltip_text, font="Verdana 8", bg="gold", relief="solid")
 broad_stroke_physics_collision_tooltip.pack_forget()
 
+
 # attach location of tooltip to the right of the text associated with the checkbox.
 def enter(event):
     broad_stroke_physics_collision_tooltip.lift(aboveThis=None)
     broad_stroke_physics_collision_tooltip.place(x=broad_stroke_physics_collision_button.winfo_x() + broad_stroke_physics_collision_button.winfo_width(), y=broad_stroke_physics_collision_button.winfo_y(), anchor='nw')
+
 
 # hide tooltip when hovering away
 def leave(event):
     broad_stroke_physics_collision_tooltip.pack_forget()
     broad_stroke_physics_collision_tooltip.lift(aboveThis=None)
     broad_stroke_physics_collision_tooltip.place_forget()
+
 
 # button binds
 broad_stroke_physics_collision_button.bind("<Enter>", enter)
@@ -3954,10 +3971,12 @@ invul_in_multiplayer_tooltip_text = "Invulnerability in multiplayer (exlcuding s
 invul_in_multiplayer_tooltip = Label(root, text=invul_in_multiplayer_tooltip_text, font="Verdana 8", bg="gold", relief="solid")
 invul_in_multiplayer_tooltip.pack_forget()
 
+
 # attach location of tooltip to the right of the text associated with the checkbox.
 def enter(event):
     invul_in_multiplayer_tooltip.lift(aboveThis=None)
     invul_in_multiplayer_tooltip.place(x=invul_in_multiplayer_button.winfo_x() + invul_in_multiplayer_button.winfo_width(), y=invul_in_multiplayer_button.winfo_y(), anchor='nw')
+
 
 # hide tooltip when hovering away
 def leave(event):
@@ -3965,10 +3984,10 @@ def leave(event):
     invul_in_multiplayer_tooltip.lift(aboveThis=None)
     invul_in_multiplayer_tooltip.place_forget()
 
+
 # button binds
 invul_in_multiplayer_button.bind("<Enter>", enter)
 invul_in_multiplayer_button.bind("<Leave>", leave)
-
 
 
 # Multiplayer Colors in Campaign
@@ -4183,10 +4202,7 @@ def undo_mp_colors_in_campaign():
 
 # Multiplayer Colors in Campaign Checkbox
 mp_colors_in_campaign_var = tk.IntVar()
-mp_colors_in_campaign_button = tk.Checkbutton(root, text='Multiplayer Colors in Campaign', variable=mp_colors_in_campaign_var,
-                                             command=lambda: (
-                                                 mp_colors_in_campaign() if mp_colors_in_campaign_var.get() else undo_mp_colors_in_campaign()),
-                                             font=("arcadia", 10, "bold"))
+mp_colors_in_campaign_button = tk.Checkbutton(root, text='Multiplayer Colors in Campaign', variable=mp_colors_in_campaign_var, command=lambda: (mp_colors_in_campaign() if mp_colors_in_campaign_var.get() else undo_mp_colors_in_campaign()), font=("arcadia", 10, "bold"))
 mp_colors_in_campaign_button.pack()
 mp_colors_in_campaign_button.place(x=10, y=760)
 
@@ -4195,10 +4211,12 @@ mp_colors_in_campaign_tooltip_text = "Multiplayer Colors in Campaign (Tag Modifi
 mp_colors_in_campaign_tooltip = Label(root, text=mp_colors_in_campaign_tooltip_text, font="Verdana 8", bg="gold", relief="solid")
 mp_colors_in_campaign_tooltip.pack_forget()
 
+
 # attach location of tooltip to the right of the text associated with the checkbox.
 def enter(event):
     mp_colors_in_campaign_tooltip.lift(aboveThis=None)
     mp_colors_in_campaign_tooltip.place(x=mp_colors_in_campaign_button.winfo_x() + mp_colors_in_campaign_button.winfo_width(), y=mp_colors_in_campaign_button.winfo_y(), anchor='nw')
+
 
 # hide tooltip when hovering away
 def leave(event):
@@ -4298,10 +4316,7 @@ def undo_acrophobia_in_mp():
 
 # Multiplayer Colors in Campaign Checkbox
 acrophobia_in_mp_var = tk.IntVar()
-acrophobia_in_mp_button = tk.Checkbutton(root, text='Acrophobia in Multiplayer (1.3073.0.0 ONLY)', variable=acrophobia_in_mp_var,
-                                             command=lambda: (
-                                                 acrophobia_in_mp() if acrophobia_in_mp_var.get() else undo_acrophobia_in_mp()),
-                                             font=("arcadia", 10, "bold"))
+acrophobia_in_mp_button = tk.Checkbutton(root, text='Acrophobia in Multiplayer (1.3073.0.0 ONLY)', variable=acrophobia_in_mp_var, command=lambda: (acrophobia_in_mp() if acrophobia_in_mp_var.get() else undo_acrophobia_in_mp()), font=("arcadia", 10, "bold"))
 acrophobia_in_mp_button.pack()
 acrophobia_in_mp_button.place(x=10, y=820)
 
@@ -4310,10 +4325,12 @@ acrophobia_in_mp_tooltip_text = "Acrophobia Skull in Multiplayer (Fly Around)."
 acrophobia_in_mp_tooltip = Label(root, text=acrophobia_in_mp_tooltip_text, font="Verdana 8", bg="gold", relief="solid")
 acrophobia_in_mp_tooltip.pack_forget()
 
+
 # attach location of tooltip to the right of the text associated with the checkbox.
 def enter(event):
     acrophobia_in_mp_tooltip.lift(aboveThis=None)
     acrophobia_in_mp_tooltip.place(x=acrophobia_in_mp_button.winfo_x() + acrophobia_in_mp_button.winfo_width(), y=acrophobia_in_mp_button.winfo_y(), anchor='nw')
+
 
 # hide tooltip when hovering away
 def leave(event):
@@ -4321,10 +4338,10 @@ def leave(event):
     acrophobia_in_mp_tooltip.lift(aboveThis=None)
     acrophobia_in_mp_tooltip.place_forget()
 
+
 # button binds
 acrophobia_in_mp_button.bind("<Enter>", enter)
 acrophobia_in_mp_button.bind("<Leave>", leave)
-
 
 
 checkbox_widgets = [broad_stroke_physics_collision_button, no_motion_blur_button, bottomless_button,
