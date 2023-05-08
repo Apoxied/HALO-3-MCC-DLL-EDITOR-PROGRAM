@@ -149,6 +149,8 @@ clear_button = tk.Button(root, text='Clean DLL', command=clear_dll, font=("arcad
 clear_button.pack()
 clear_button.place(x=475, y=883)
 
+global offset_widgets
+offset_widgets = []
 
 # Remove DLL Function
 # noinspection PyGlobalUndefined
@@ -158,6 +160,7 @@ def remove_dll():
     global open_dll_active
     global checkbox_widgets
     global checkbox_widget
+    global offset_widgets
 
     # Reset file path and bytes
     filepath = ""
@@ -192,7 +195,12 @@ def remove_dll():
     bump_possession_var.set(False)
     theater_sync_var.set(False)
     mp_colors_in_campaign_var.set(False)
-    acrophobia_in_mp_var(False)
+    acrophobia_in_mp_var.set(False)
+
+    # Delete all offset_text widgets
+    for widget in offset_widgets:
+        widget.destroy()
+    offset_widgets = []
 
     # Set the open DLL status to True
     open_dll_active = True
@@ -380,6 +388,7 @@ def check_offset():
             offset_text.place(x=180, y=74)
             bottomless_var.set(1)
             bottomless_button.select()
+            offset_widgets.append(offset_text)  # Add new widget to the list
         elif array_index2 != -1:
             offset_text = tk.Text(root, height=1, width=12, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
             offset_text.insert("1.0", "{:X}".format(
@@ -387,6 +396,7 @@ def check_offset():
             offset_text.configure(state="disabled")
             offset_text.pack()
             offset_text.place(x=180, y=74)
+            offset_widgets.append(offset_text)  # Add new widget to the list
 
         # If array of bytes is not found, update the state of bottomless grenades checkbox
         else:
@@ -419,6 +429,7 @@ def check_offset():
             offset_text.place(x=180, y=103)
             all_grenades_var.set(1)
             all_grenades_at_once_button.select()
+            offset_widgets.append(offset_text)  # Add new widget to the list
         elif array_index_4 != -1 and array_index_5 != -1 and array_index_6 != -1:
             offset_text = tk.Text(root, height=1, width=28, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
             offset_text.insert("1.0", "{:X}".format(array_index_4 + 3).upper() + ", " +
@@ -427,6 +438,7 @@ def check_offset():
             offset_text.configure(state="disabled")
             offset_text.pack()
             offset_text.place(x=180, y=103)
+            offset_widgets.append(offset_text)  # Add new widget to the list
         else:
             all_grenades_var.set(0)
             all_grenades_at_once_button.deselect()
@@ -448,6 +460,7 @@ def check_offset():
             offset_text.place(x=159, y=134)
             bottomless_ammo_var.set(1)
             bottomless_ammo_button.select()
+            offset_widgets.append(offset_text)  # Add new widget to the list
         elif array_index_5 != -1:
             offset_text = tk.Text(root, height=1, width=12, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
             offset_text.insert("1.0", "{:X}".format(
@@ -455,6 +468,7 @@ def check_offset():
             offset_text.configure(state="disabled")
             offset_text.pack()
             offset_text.place(x=159, y=134)
+            offset_widgets.append(offset_text)  # Add new widget to the list
         else:
             bottomless_ammo_var.set(0)
             bottomless_ammo_button.deselect()
@@ -485,6 +499,7 @@ def check_offset():
             offset_text.place(x=232, y=164)
             no_barriers_kill_triggers_var.set(1)
             no_barriers_kill_triggers_button.select()
+            offset_widgets.append(offset_text)  # Add new widget to the list
         elif array_index_8 and array_index_9 and array_index_10 != -1:
             offset_text = tk.Text(root, height=1, width=28, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
             offset_text.insert("1.0", "{:X}".format(array_index_8).upper() + ", " +
@@ -493,6 +508,7 @@ def check_offset():
             offset_text.configure(state="disabled")
             offset_text.pack()
             offset_text.place(x=232, y=164)
+            offset_widgets.append(offset_text)  # Add new widget to the list
         else:
             no_barriers_kill_triggers_var.set(0)
             no_barriers_kill_triggers_button.deselect()
@@ -512,6 +528,7 @@ def check_offset():
             offset_text.place(x=90, y=193)
             thirty_tick_var.set(1)
             thirty_tick_button.select()
+            offset_widgets.append(offset_text)  # Add new widget to the list
         elif array_index_9 != -1:
             offset_text = tk.Text(root, height=1, width=12, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
             offset_text.insert("1.0", "{:X}".format(
@@ -519,6 +536,7 @@ def check_offset():
             offset_text.configure(state="disabled")
             offset_text.pack()
             offset_text.place(x=90, y=193)
+            offset_widgets.append(offset_text)  # Add new widget to the list
         else:
             thirty_tick_var.set(0)
             thirty_tick_button.deselect()
@@ -540,6 +558,7 @@ def check_offset():
             offset_text.place(x=175, y=224)
             dual_wield_anything_var.set(1)
             dual_wield_anything_button.select()
+            offset_widgets.append(offset_text)  # Add new widget to the list
         elif array_index_10 != -1:
             offset_text = tk.Text(root, height=1, width=12, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
             offset_text.insert("1.0", "{:X}".format(
@@ -547,6 +566,7 @@ def check_offset():
             offset_text.configure(state="disabled")
             offset_text.pack()
             offset_text.place(x=175, y=224)
+            offset_widgets.append(offset_text)  # Add new widget to the list
         else:
             dual_wield_anything_var.set(0)
             dual_wield_anything_button.deselect()
@@ -578,6 +598,7 @@ def check_offset():
             offset_text.place(x=275, y=254)
             custom_colors_multiplayer_var.set(1)
             custom_colors_multiplayer_button.select()
+            offset_widgets.append(offset_text)  # Add new widget to the list
         elif array_index_13 and array_index_14 and array_index_15 != -1:
             offset_text = tk.Text(root, height=1, width=28, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
             offset_text.insert("1.0", "{:X}".format(array_index_13).upper() + ", " +
@@ -586,6 +607,7 @@ def check_offset():
             offset_text.configure(state="disabled")
             offset_text.pack()
             offset_text.place(x=275, y=254)
+            offset_widgets.append(offset_text)  # Add new widget to the list
         else:
             custom_colors_multiplayer_var.set(0)
             custom_colors_multiplayer_button.deselect()
@@ -606,12 +628,14 @@ def check_offset():
             offset_text.place(x=182, y=284)
             no_weapon_overheat_var.set(1)
             no_weapon_overheat_button.select()
+            offset_widgets.append(offset_text)  # Add new widget to the list
         elif array_index_14 != -1:
             offset_text = tk.Text(root, height=1, width=12, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
             offset_text.insert("1.0", "{:X}".format(array_index_14).upper())
             offset_text.configure(state="disabled")
             offset_text.pack()
             offset_text.place(x=182, y=284)
+            offset_widgets.append(offset_text)  # Add new widget to the list
         else:
             no_weapon_overheat_var.set(0)
             no_weapon_overheat_button.deselect()
@@ -632,12 +656,14 @@ def check_offset():
             offset_text.place(x=267, y=314)
             check_var.set(1)
             no_checkpoint_crashes_button.select()
+            offset_widgets.append(offset_text)  # Add new widget to the list
         elif array_index_15 != -1:
             offset_text = tk.Text(root, height=1, width=12, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
             offset_text.insert("1.0", "{:X}".format(array_index_15).upper())
             offset_text.configure(state="disabled")
             offset_text.pack()
             offset_text.place(x=267, y=314)
+            offset_widgets.append(offset_text)  # Add new widget to the list
         else:
             check_var.set(0)
             no_checkpoint_crashes_button.deselect()
@@ -658,12 +684,14 @@ def check_offset():
             offset_text.place(x=227, y=794)
             invul_var.set(1)
             invul_in_multiplayer_button.select()
+            offset_widgets.append(offset_text)  # Add new widget to the list
         elif array_index_16 != -1:
             offset_text = tk.Text(root, height=1, width=12, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
             offset_text.insert("1.0", "{:X}".format(array_index_16).upper())
             offset_text.configure(state="disabled")
             offset_text.pack()
             offset_text.place(x=227, y=794)
+            offset_widgets.append(offset_text)  # Add new widget to the list
         else:
             invul_var.set(0)
             invul_in_multiplayer_button.deselect()
@@ -689,6 +717,7 @@ def check_offset():
             offset_text.place(x=198, y=374)
             flashlight_var.set(1)
             flashlight_in_multiplayer_button.select()
+            offset_widgets.append(offset_text)  # Add new widget to the list
         elif array_index_18 and array_index_19 != -1:
             offset_text = tk.Text(root, height=1, width=20, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
             offset_text.insert("1.0", "{:X}".format(array_index_18).upper() + ", " +
@@ -696,6 +725,7 @@ def check_offset():
             offset_text.configure(state="disabled")
             offset_text.pack()
             offset_text.place(x=198, y=374)
+            offset_widgets.append(offset_text)  # Add new widget to the list
         else:
             flashlight_var.set(0)
             flashlight_in_multiplayer_button.deselect()
@@ -716,12 +746,14 @@ def check_offset():
             offset_text.place(x=129, y=615)
             third_person_var.set(1)
             third_person_button.select()
+            offset_widgets.append(offset_text)  # Add new widget to the list
         elif array_index_20 != -1:
             offset_text = tk.Text(root, height=1, width=12, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
             offset_text.insert("1.0", "{:X}".format(array_index_20).upper())
             offset_text.configure(state="disabled")
             offset_text.pack()
             offset_text.place(x=129, y=615)
+            offset_widgets.append(offset_text)  # Add new widget to the list
         else:
             third_person_var.set(0)
             third_person_button.deselect()
@@ -747,6 +779,7 @@ def check_offset():
             offset_text.configure(state="disabled")
             offset_text.pack()
             offset_text.place(x=125, y=644)
+            offset_widgets.append(offset_text)  # Add new widget to the list
         else:
             new_array_bytes = b"\xC7\x03\xF5\x7A\x85\x40\xC7\x43\x04\x00\x00"
             new_count = 0
@@ -768,6 +801,7 @@ def check_offset():
                 offset_text.configure(state="disabled")
                 offset_text.pack()
                 offset_text.place(x=125, y=644)
+                offset_widgets.append(offset_text)  # Add new widget to the list
 
         # Check For Always Elite
         array_bytes_21 = b"\xEB\x42\x90\x90\x90\x90\x90\x90"
@@ -790,6 +824,7 @@ def check_offset():
             offset_text.place(x=140, y=674)
             always_elite_var.set(1)
             always_elite_button.select()
+            offset_widgets.append(offset_text)  # Add new widget to the list
         elif array_index_23 and array_index_24 != -1:
             offset_text = tk.Text(root, height=1, width=20, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
             offset_text.insert("1.0", "{:X}".format(array_index_23 + 6).upper() + ", " +
@@ -797,6 +832,7 @@ def check_offset():
             offset_text.configure(state="disabled")
             offset_text.pack()
             offset_text.place(x=140, y=674)
+            offset_widgets.append(offset_text)  # Add new widget to the list
         else:
             always_elite_var.set(0)
             always_elite_button.deselect()
@@ -817,12 +853,14 @@ def check_offset():
             offset_text.place(x=135, y=524)
             enlarge_crate_var.set(1)
             enlarge_all_crate_objects_button.select()
+            offset_widgets.append(offset_text)  # Add new widget to the list
         elif array_index_24 != -1:
             offset_text = tk.Text(root, height=1, width=14, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
             offset_text.insert("1.0", "{:X}".format(array_index_24).upper())
             offset_text.configure(state="disabled")
             offset_text.pack()
             offset_text.place(x=145, y=524)
+            offset_widgets.append(offset_text)  # Add new widget to the list
         else:
             enlarge_crate_var.set(0)
             enlarge_all_crate_objects_button.deselect()
@@ -843,12 +881,14 @@ def check_offset():
             offset_text.place(x=197, y=554)
             ai_spawning_var.set(1)
             ai_spawning_via_effects_button.select()
+            offset_widgets.append(offset_text)  # Add new widget to the list
         elif array_index_25 != -1:
             offset_text = tk.Text(root, height=1, width=14, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
             offset_text.insert("1.0", "{:X}".format(array_index_25 + 4).upper())
             offset_text.configure(state="disabled")
             offset_text.pack()
             offset_text.place(x=197, y=554)
+            offset_widgets.append(offset_text)  # Add new widget to the list
         else:
             ai_spawning_var.set(0)
             ai_spawning_via_effects_button.deselect()
@@ -874,6 +914,7 @@ def check_offset():
             offset_text.place(x=172, y=584)
             laso_in_multiplayer_var.set(1)
             laso_in_multiplayer_button.select()
+            offset_widgets.append(offset_text)  # Add new widget to the list
         elif array_index_27 and array_index_28 != -1:
             offset_text = tk.Text(root, height=1, width=20, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
             offset_text.insert("1.0", "{:X}".format(array_index_27).upper() + ", " +
@@ -881,6 +922,7 @@ def check_offset():
             offset_text.configure(state="disabled")
             offset_text.pack()
             offset_text.place(x=172, y=584)
+            offset_widgets.append(offset_text)  # Add new widget to the list
 
         else:
             laso_in_multiplayer_var.set(0)
@@ -901,19 +943,21 @@ def check_offset():
         if array_index_25 and array_index_26 != -1:
             offset_text = tk.Text(root, height=1, width=20, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
             offset_text.insert("1.0", "{:X}".format(array_index_25).upper() + ", " +
-                            "{:X}".format(array_index_26).upper())
+                               "{:X}".format(array_index_26).upper())
             offset_text.configure(state="disabled")
             offset_text.pack()
             offset_text.place(x=312, y=433)
             fix_forge_falling_speed_var.set(1)
             fix_forge_falling_speed_button.select()
+            offset_widgets.append(offset_text)  # Add new widget to the list
         elif array_index_27 and array_index_28 != -1:
             offset_text = tk.Text(root, height=1, width=20, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
             offset_text.insert("1.0", "{:X}".format(array_index_27).upper() + ", " +
-                            "{:X}".format(array_index_28).upper())
+                               "{:X}".format(array_index_28).upper())
             offset_text.configure(state="disabled")
             offset_text.pack()
             offset_text.place(x=312, y=433)
+            offset_widgets.append(offset_text)  # Add new widget to the list
         else:
             fix_forge_falling_speed_var.set(0)
             fix_forge_falling_speed_button.deselect()
@@ -939,6 +983,7 @@ def check_offset():
             offset_text.place(x=175, y=464)
             wall_clip_in_theater_var.set(1)
             wall_clip_in_theater_button.select()
+            offset_widgets.append(offset_text)  # Add new widget to the list
         elif array_index_31 and array_index_32 != -1:
             offset_text = tk.Text(root, height=1, width=20, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
             offset_text.insert("1.0", "{:X}".format(array_index_31).upper() + ", " +
@@ -946,6 +991,7 @@ def check_offset():
             offset_text.configure(state="disabled")
             offset_text.pack()
             offset_text.place(x=175, y=464)
+            offset_widgets.append(offset_text)  # Add new widget to the list
         else:
             wall_clip_in_theater_var.set(0)
             wall_clip_in_theater_button.deselect()
@@ -966,12 +1012,14 @@ def check_offset():
             offset_text.place(x=185, y=494)
             bottomless_equipment_var.set(1)
             bottomless_equipment_button.select()
+            offset_widgets.append(offset_text)  # Add new widget to the list
         elif array_index_31 != -1:
             offset_text = tk.Text(root, height=1, width=14, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
             offset_text.insert("1.0", "{:X}".format(array_index_31 + 2).upper())
             offset_text.configure(state="disabled")
             offset_text.pack()
             offset_text.place(x=185, y=494)
+            offset_widgets.append(offset_text)  # Add new widget to the list
         else:
             bottomless_equipment_var.set(0)
             bottomless_equipment_button.deselect()
@@ -1007,6 +1055,7 @@ def check_offset():
             offset_text.place(x=267, y=704)
             bump_possession_var.set(1)
             bump_possession_button.select()
+            offset_widgets.append(offset_text)  # Add new widget to the list
         elif array_index_34 and array_index_35 and array_index_36 and array_index_37 != -1:
             offset_text = tk.Text(root, height=1, width=34, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
             offset_text.insert("1.0", "{:X}".format(array_index_34).upper() + ", " +
@@ -1016,6 +1065,7 @@ def check_offset():
             offset_text.configure(state="disabled")
             offset_text.pack()
             offset_text.place(x=267, y=704)
+            offset_widgets.append(offset_text)  # Add new widget to the list
         else:
             bump_possession_var.set(0)
             bump_possession_button.deselect()
@@ -1041,6 +1091,7 @@ def check_offset():
             offset_text.place(x=239, y=734)
             broad_stroke_physics_collision_var.set(1)
             broad_stroke_physics_collision_button.select()
+            offset_widgets.append(offset_text)  # Add new widget to the list
         elif array_index_36 and array_index_37 != -1:
             offset_text = tk.Text(root, height=1, width=24, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
             offset_text.insert("1.0", "{:X}".format(array_index_36).upper() + ", " +
@@ -1048,6 +1099,7 @@ def check_offset():
             offset_text.configure(state="disabled")
             offset_text.pack()
             offset_text.place(x=239, y=734)
+            offset_widgets.append(offset_text)  # Add new widget to the list
         else:
             broad_stroke_physics_collision_var.set(0)
             broad_stroke_physics_collision_button.deselect()
@@ -1068,12 +1120,14 @@ def check_offset():
             offset_text.place(x=140, y=344)
             no_motion_blur_var.set(1)
             no_motion_blur_button.select()
+            offset_widgets.append(offset_text)  # Add new widget to the list
         elif array_index_37 != -1:
             offset_text = tk.Text(root, height=1, width=14, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
             offset_text.insert("1.0", "{:X}".format(array_index_37).upper())
             offset_text.configure(state="disabled")
             offset_text.pack()
             offset_text.place(x=140, y=344)
+            offset_widgets.append(offset_text)  # Add new widget to the list
         else:
             no_motion_blur_var.set(0)
             no_motion_blur_button.deselect()
@@ -1093,12 +1147,14 @@ def check_offset():
             offset_text.place(x=154, y=404)
             theater_sync_var.set(1)
             theater_sync_button.select()
+            offset_widgets.append(offset_text)  # Add new widget to the list
         elif array_index_38 != -1:
             offset_text = tk.Text(root, height=1, width=12, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
             offset_text.insert("1.0", "{:X}".format(array_index_38).upper())
             offset_text.configure(state="disabled")
             offset_text.pack()
             offset_text.place(x=154, y=404)
+            offset_widgets.append(offset_text)  # Add new widget to the list
         else:
             theater_sync_var.set(0)
             theater_sync_button.deselect()
@@ -1144,6 +1200,7 @@ def check_offset():
             offset_text.place(x=244, y=764)
             mp_colors_in_campaign_var.set(1)
             mp_colors_in_campaign_button.select()
+            offset_widgets.append(offset_text)  # Add new widget to the list
         elif array_index_66 and array_index_67 and array_index_68 and array_index_69 and array_index_70 and array_index_71 != -1:
             offset_text = tk.Text(root, height=1, width=45, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
             offset_text.insert("1.0", "{:X}".format(array_index_66 + 4).upper() + ", " +
@@ -1155,6 +1212,7 @@ def check_offset():
             offset_text.configure(state="disabled")
             offset_text.pack()
             offset_text.place(x=244, y=764)
+            offset_widgets.append(offset_text)  # Add new widget to the list
         else:
             mp_colors_in_campaign_var.set(0)
             mp_colors_in_campaign_button.deselect()
@@ -1172,7 +1230,7 @@ def check_offset():
         array_index_75 = dll_bytes.find(array_bytes_75)
 
         if array_index_72 and array_index_73 != -1:
-            offset_text = tk.Text(root, height=1, width=30, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
+            offset_text = tk.Text(root, height=1, width=20, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
             offset_text.insert("1.0", "{:X}".format(array_index_72).upper() + ", " +
                                "{:X}".format(array_index_73).upper())
             offset_text.configure(state="disabled")
@@ -1180,13 +1238,15 @@ def check_offset():
             offset_text.place(x=320, y=823)
             acrophobia_in_mp_var.set(1)
             acrophobia_in_mp_button.select()
+            offset_widgets.append(offset_text)  # Add new widget to the list
         elif array_index_74 and array_index_75 != -1:
-            offset_text = tk.Text(root, height=1, width=30, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
+            offset_text = tk.Text(root, height=1, width=20, font=("Arial", 10, "bold"), fg="black", cursor="hand2")
             offset_text.insert("1.0", "{:X}".format(array_index_74).upper() + ", " +
                                "{:X}".format(array_index_75).upper())
             offset_text.configure(state="disabled")
             offset_text.pack()
             offset_text.place(x=320, y=823)
+            offset_widgets.append(offset_text)  # Add new widget to the list
         else:
             acrophobia_in_mp_var.set(0)
             acrophobia_in_mp_button.deselect()
